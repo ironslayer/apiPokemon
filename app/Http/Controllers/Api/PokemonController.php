@@ -21,14 +21,14 @@ class PokemonController extends Controller
      *     @OA\Parameter(
      *         name="limit",
      *         in="query",
-     *         description="Number of pokemon to return",
+     *         description="return",
      *         required=false,
      *         @OA\Schema(type="integer", minimum=1, maximum=100, default=10)
      *     ),
      *     @OA\Parameter(
      *         name="offset",
      *         in="query",
-     *         description="Number of pokemon to skip",
+     *         description="skip",
      *         required=false,
      *         @OA\Schema(type="integer", minimum=0, default=0)
      *     ),

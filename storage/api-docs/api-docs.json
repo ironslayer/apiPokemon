@@ -23,6 +23,8 @@
                     {
                         "name": "limit",
                         "in": "query",
+                        "description": "return",
+                        "required": false,
                         "schema": {
                             "type": "integer",
                             "default": 10,
@@ -33,6 +35,8 @@
                     {
                         "name": "offset",
                         "in": "query",
+                        "description": "skip",
+                        "required": false,
                         "schema": {
                             "type": "integer",
                             "default": 0,
@@ -46,89 +50,30 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "name": {
-                                                        "type": "string"
-                                                    },
-                                                    "type": {
-                                                        "type": "string"
-                                                    },
-                                                    "image": {
-                                                        "type": "string"
-                                                    }
-                                                },
-                                                "type": "object"
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "bulbasaur"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "example": "grass, poison"
+                                            },
+                                            "image": {
+                                                "type": "string",
+                                                "example": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
                                             }
-                                        }
-                                    },
-                                    "type": "object"
+                                        },
+                                        "type": "object"
+                                    }
                                 }
                             }
                         }
-                    },
-                    "422": {
-                        "description": "Invalid parameters"
                     },
                     "503": {
                         "description": "Service unavailable"
-                    }
-                }
-            }
-        },
-        "/api/pokemon/{id}": {
-            "get": {
-                "tags": [
-                    "Pokemon"
-                ],
-                "summary": "Get pokemon by ID",
-                "operationId": "d0edac086b7ff042c9f96ad070ea8b37",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "minimum": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "data": {
-                                            "properties": {
-                                                "name": {
-                                                    "type": "string"
-                                                },
-                                                "type": {
-                                                    "type": "string"
-                                                },
-                                                "image": {
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid ID"
-                    },
-                    "404": {
-                        "description": "Not found"
                     }
                 }
             }
@@ -137,7 +82,7 @@
     "tags": [
         {
             "name": "Pokemon",
-            "description": "Pokemon API endpoints"
+            "description": "Pokemon API"
         }
     ]
 }
