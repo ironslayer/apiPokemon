@@ -17,7 +17,21 @@ class PokemonController extends Controller
      * @OA\Get(
      *     path="/api/pokemon",
      *     tags={"Pokemon"},
-     *     summary="Get 10 pokemon",
+     *     summary="Get pokemon list",
+     *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         description="Number of pokemon to return",
+     *         required=false,
+     *         @OA\Schema(type="integer", minimum=1, maximum=100, default=10)
+     *     ),
+     *     @OA\Parameter(
+     *         name="offset",
+     *         in="query",
+     *         description="Number of pokemon to skip",
+     *         required=false,
+     *         @OA\Schema(type="integer", minimum=0, default=0)
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Success",
@@ -36,9 +50,12 @@ class PokemonController extends Controller
     public function index()
     {
         try {
+            $limit = request('limit', 10);
+            $offset = request('offset', 0);
+            
             $response = Http::timeout(30)->get('https://pokeapi.co/api/v2/pokemon', [
-                'limit' => 10,
-                'offset' => 0
+                'limit' => $limit,
+                'offset' => $offset
             ]);
 
             if (!$response->successful()) {
