@@ -292,7 +292,6 @@
         let searchTimeout = null;
         let allPokemon = [];
 
-        // Elementos del DOM
         const loadingElement = document.getElementById('loading');
         const errorElement = document.getElementById('error');
         const tableElement = document.getElementById('pokemon-table');
@@ -302,7 +301,6 @@
         const paginationInfo = document.getElementById('pagination-info');
         const searchInput = document.getElementById('searchInput');
 
-        // Funciones de utilidad
         function showLoading() {
             loadingElement.style.display = 'block';
             errorElement.style.display = 'none';
@@ -327,7 +325,6 @@
             errorElement.style.display = 'none';
         }
 
-        // Función para buscar pokémon específico
         async function searchPokemon(name) {
             try {
                 const response = await fetch(`${API_BASE_URL}/pokemon/search?name=${encodeURIComponent(name)}`);
@@ -342,7 +339,7 @@
                     return null;
                 }
                 
-                return [pokemon]; // Retornar como array para mantener consistencia
+                return [pokemon]; 
                 
             } catch (error) {
                 console.error('Error al buscar pokémon:', error);
@@ -350,7 +347,6 @@
             }
         }
 
-        // Función para cargar pokémon desde la API
         async function loadPokemon() {
             try {
                 showLoading();
@@ -382,7 +378,6 @@
             }
         }
 
-        // Función para mostrar los pokémon en la tabla
         function displayPokemon(pokemon) {
             tbodyElement.innerHTML = '';
             
@@ -426,7 +421,6 @@
             ).join('');
         }
 
-        // Función para actualizar la información de paginación
         function updatePaginationInfo() {
             const currentPage = Math.floor(currentOffset / currentLimit) + 1;
             const startPokemon = currentOffset + 1;
@@ -435,7 +429,6 @@
             paginationInfo.textContent = `Página ${currentPage} | Mostrando ${startPokemon} - ${endPokemon}`;
         }
 
-        // Funciones de navegación
         function nextPage() {
             offsetInput.value = parseInt(offsetInput.value) + 1;
             loadPokemon();
@@ -447,25 +440,21 @@
             loadPokemon();
         }
 
-        // Función de búsqueda en tiempo real
         async function handleSearch() {
             const searchTerm = searchInput.value.trim().toLowerCase();
             
             if (searchTerm === '') {
-                // Si no hay búsqueda, mostrar lista normal
                 displayPokemon(allPokemon);
                 return;
             }
 
             if (searchTerm.length < 2) {
-                // No buscar hasta tener al menos 2 caracteres
                 return;
             }
 
             try {
                 showLoading();
                 
-                // Buscar pokémon específico por nombre
                 const result = await searchPokemon(searchTerm);
                 
                 if (result) {
@@ -486,7 +475,6 @@
             }
         }
 
-        // Event listeners
         limitSelect.addEventListener('change', () => {
             offsetInput.value = 0;
             loadPokemon();
@@ -494,13 +482,11 @@
 
         offsetInput.addEventListener('change', loadPokemon);
 
-        // Búsqueda en tiempo real con debounce
         searchInput.addEventListener('input', () => {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(handleSearch, 500);
         });
 
-        // Limpiar búsqueda al presionar Escape
         searchInput.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 searchInput.value = '';
@@ -509,7 +495,6 @@
             }
         });
 
-        // Cargar pokémon al iniciar la página
         document.addEventListener('DOMContentLoaded', () => {
             loadPokemon();
         });
