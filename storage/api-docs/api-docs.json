@@ -77,6 +77,76 @@
                     }
                 }
             }
+        },
+        "/api/pokemon/search": {
+            "get": {
+                "tags": [
+                    "Pokemon"
+                ],
+                "summary": "Search pokemon by name",
+                "operationId": "dd6996ecfd0830f65e5301864a91e4d0",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Pokemon name to search",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "pikachu"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "pikachu"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "example": "electric"
+                                        },
+                                        "image": {
+                                            "type": "string",
+                                            "example": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pokemon not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se pudo obtener información"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service unavailable"
+                    }
+                }
+            }
         }
     },
     "tags": [

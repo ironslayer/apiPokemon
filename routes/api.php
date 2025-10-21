@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('pokemon', [PokemonController::class, 'index']);
+Route::get('pokemon/search', [PokemonController::class, 'search']);
