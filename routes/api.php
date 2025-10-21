@@ -8,5 +8,11 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+// Rutas de Pokemon
 Route::get('pokemon', [PokemonController::class, 'index']);
 Route::get('pokemon/search', [PokemonController::class, 'search']);
+
+// Manejar peticiones OPTIONS para CORS
+Route::options('{any}', function () {
+    return response('', 200);
+})->where('any', '.*');
